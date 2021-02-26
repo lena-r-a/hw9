@@ -1,15 +1,15 @@
 $(function () {
   var index = 0;
-  let div = this.querySelector('#date_today')
+  let div = this.querySelector("#date_today");
   const addButton = $("#save");
 
-var today = new Date();
-var dd = String(today.getDate()).padStart(2, '0');
-var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-var yyyy = today.getFullYear();
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, "0");
+  var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+  var yyyy = today.getFullYear();
 
-today = dd + '/' + mm + '/' + yyyy;
-div.append("Сегодня "+today);
+  today = dd + "/" + mm + "/" + yyyy;
+  div.append("Сегодня " + today);
 
   if (localStorage.getItem("number")) {
     index = localStorage.getItem("number");
@@ -17,11 +17,11 @@ div.append("Сегодня "+today);
 
   if (localStorage.getItem("tasks")) {
     $("ul").append(localStorage.getItem("tasks"));
-  } 
+  }
 
-  $('#newtask').on('shown.bs.modal', function () {
-    $('#task__name').focus();
-  })
+  $("#newtask").on("shown.bs.modal", function () {
+    $("#task__name").focus();
+  });
 
   addButton.click(function () {
     let date = document.querySelector("#finish__date");
@@ -34,7 +34,9 @@ div.append("Сегодня "+today);
              <span class="col date">${date.value}</span>
               <span class="remove col"><i class="far fa-trash-alt"></i></span></li>`);
     }
-    if (date.value!==""){$('.date').attr('data-tooltip','Срок выполнения задачи')};
+    if (date.value !== "") {
+      $(".date").attr("data-tooltip", "Срок выполнения задачи");
+    }
     $("#finish__date").val("YYYY-MM-DD");
     $("#task__name").val("");
     toLocal();
@@ -65,14 +67,16 @@ div.append("Сегодня "+today);
   });
 
   let list = document.querySelector("ul");
-  list.addEventListener('click',function(e){
+  list.addEventListener("click", function (e) {
     debugger;
     let current = e.target;
-     if (current.tagName === "SPAN") {(current.classList.toggle("strikethrow"));
-                                      current.closest('div').firstChild.toggleAttribute("checked")};
+    let input = current.previousSibling.previousSibling;
+    if (current.tagName === "SPAN") {
+      current.classList.toggle("strikethrow");
+      if (input.tagName == "INPUT" && input.type == "checkbox") input.click();
+    }
     toLocal();
   });
-
 
   $("#clear").click(() => {
     localStorage.clear();
@@ -80,5 +84,3 @@ div.append("Сегодня "+today);
     index = 0;
   });
 });
-
-
