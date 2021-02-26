@@ -1,5 +1,6 @@
 $(function () {
   var index = 0;
+  let div = this.querySelector('#date_today')
   const addButton = $("#save");
 
 var today = new Date();
@@ -8,7 +9,7 @@ var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
 var yyyy = today.getFullYear();
 
 today = dd + '/' + mm + '/' + yyyy;
-console.log(today);
+div.append("Сегодня "+today);
 
   if (localStorage.getItem("number")) {
     index = localStorage.getItem("number");
@@ -19,7 +20,6 @@ console.log(today);
   } 
 
   $('#newtask').on('shown.bs.modal', function () {
-    //#myInput - id элемента, которому необходимо установить фокус
     $('#task__name').focus();
   })
 
@@ -30,7 +30,7 @@ console.log(today);
       index++;
       $(".list__task")
         .append(`<li class="row"><div class="left-cont col-6"><input type="checkbox" 
-             id="check-${index}" name=""><label for="check-'${index}'"></label><span>${tn}</span></div>
+             id="check-${index}" name=""><label for="check-${index}"></label><span>${tn}</span></div>
              <span class="col date">${date.value}</span>
               <span class="remove col"><i class="far fa-trash-alt"></i></span></li>`);
     }
